@@ -24,10 +24,14 @@ export default class JaxPlugin extends Plugin {
     if (MathJax.tex2chtml == undefined) {
       MathJax.startup.ready = () => {
         MathJax.startup.defaultReady();
+		MathJax.startup.input.forEach((conf) => { conf._parseOptions.options.maxBuffer = 20 * 1024; conf._parseOptions.options.maxMacros = 10000; });
+
         MathJax.tex2chtml(preamble);
       };
     } else {
       MathJax.tex2chtml(preamble);
+	  MathJax.startup.input.forEach((conf) => { conf._parseOptions.options.maxBuffer = 20 * 1024; conf._parseOptions.options.maxMacros = 10000; });
+
     }
   }
 
@@ -87,3 +91,4 @@ class JaxPluginSettingTab extends PluginSettingTab {
       );
   }
 }
+
